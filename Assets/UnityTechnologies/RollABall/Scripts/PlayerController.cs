@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 // Include the namespace required to use Unity UI
 using UnityEngine.UI;
@@ -15,6 +16,8 @@ public class PlayerController : MonoBehaviour {
 	// Create private references to the rigidbody component on the player, and the count of pick up objects picked up so far
 	private Rigidbody rb;
 	private int count;
+
+	public UnityEvent OnCuboRecogido;
 
 	// At the start of the game..
 	void Start ()
@@ -54,6 +57,8 @@ public class PlayerController : MonoBehaviour {
 		// ..and if the game object we intersect has the tag 'Pick Up' assigned to it..
 		if (other.gameObject.CompareTag ("Pick Up"))
 		{
+			OnCuboRecogido.Invoke();
+
 			// Make the other game object (the pick up) inactive, to make it disappear
 			other.gameObject.SetActive (false);
 
